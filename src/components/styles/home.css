@@ -1,0 +1,15 @@
+.title {
+  padding-top: 20px;
+}
+
+.glitch-container{
+  background-color: rgba(0,0,0,0.7);
+  font-family: 'Oswald', sans-serif;
+}
+
+h3 {
+  text-align: center;
+  font-size: 25px;
+  color: #fff;
+  margin-top: 0;
+}

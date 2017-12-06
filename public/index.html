@@ -24,13 +24,38 @@
   	<meta name="keywords" content="experimental music, electronic music, instrumental, dirk stromberg, ascension, images of ascension, vr, webvr" />
   	<meta name="author" content="Dirk Stromberg" />
 
-    <link rel="stylesheet" href="css/main.min.css">
-    <link rel="stylesheet" type="text/css" href="css/hexagons.css">
-    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="icon" href="./favicon.ico">
 
     <link href="https://fonts.googleapis.com/css?family=Oswald|Ubuntu+Mono" rel="stylesheet">
   </head>
   <body>
+    <div id="container">
+      <div class="content">
+      	<canvas class="scene scene--full" id="scene"></canvas>
+      	<script type="x-shader/x-vertex" id="wrapVertexShader">
+      		attribute float size;
+      		attribute vec3 color;
+      		varying vec3 vColor;
+      		void main() {
+      			vColor = color;
+      			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+      			gl_PointSize = size * ( 350.0 / - mvPosition.z );
+      			gl_Position = projectionMatrix * mvPosition;
+      		}
+      	</script>
+      	<script type="x-shader/x-fragment" id="wrapFragmentShader">
+      		varying vec3 vColor;
+      		uniform sampler2D texture;
+      		void main(){
+      			vec4 textureColor = texture2D( texture, gl_PointCoord );
+      			if ( textureColor.a < 0.3 ) discard;
+      			vec4 color = vec4(vColor.xyz, 1.0) * textureColor;
+      			gl_FragColor = color;
+      		}
+      	</script>
+      </div>
+    </div>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -45,5 +70,9 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="js/three.min.js"></script>
+  	<script src="js/TweenMax.min.js"></script>
+  	<script src="js/demo1.js"></script>
   </body>
 </html>

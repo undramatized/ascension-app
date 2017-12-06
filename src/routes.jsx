@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  BrowserRouter as Router, Route, Link
+  Router, Link
 } from 'react-router-dom';
 import { AnimatedRoute } from 'react-router-transition';
 import Home from './components/Home';
@@ -34,8 +34,6 @@ const TransitionRoute = (props) => {
 const AppRouter = () => (
   <Router history={history}>
     <div>
-      <Link to="/">Home</Link>
-      <Link to="/scenes">Scenes</Link>
       <TransitionRoute path="/" component={Home} />
       <TransitionRoute path="/scenes" component={Scenes} />
       <TransitionRoute path="/movie" component={Movie} />
